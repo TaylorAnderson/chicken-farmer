@@ -1,0 +1,156 @@
+[gd_scene format=4 uid="uid://bj0b5gtqapd5q"]
+
+[ext_resource type="Texture2D" uid="uid://cx1lfxk2spfsx" path="res://assets/farmer.png" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://b0xcbu3svgkgc" path="res://player.gd" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://dv7f2wl2w132s" path="res://chicken.tscn" id="3_feb5d"]
+[ext_resource type="Texture2D" uid="uid://db8a4t6b8bqj8" path="res://assets/fence.png" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://c7tc0vitksrfs" path="res://camera.gd" id="5_7jktm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0uuj"]
+radius = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jktm"]
+atlas = ExtResource("1_80nbo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryrav"]
+atlas = ExtResource("1_80nbo")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5wjh"]
+atlas = ExtResource("1_80nbo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vef74"]
+atlas = ExtResource("1_80nbo")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eow3j"]
+atlas = ExtResource("1_80nbo")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i0uuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jktm")
+}],
+"loop": 1,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryrav")
+}],
+"loop": 1,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5wjh")
+}],
+"loop": 1,
+"name": &"side_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vef74")
+}],
+"loop": 1,
+"name": &"side_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eow3j")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jktm"]
+texture = ExtResource("4_fc0e3")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, 4, 0, 4, 8, 0, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, 0, 8, 0, 0, -8, 0)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -4, 8, -4, -8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 4, -8, 4, -4, 8, -4, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, -4, -8, 8, -8, 8, 8, -8, 8, -8, -4)
+
+[sub_resource type="TileSet" id="TileSet_i0uuj"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_7jktm")
+
+[node name="Node2D" type="Node2D" unique_id=625627386]
+y_sort_enabled = true
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1142791260]
+position = Vector2(49, 22)
+script = ExtResource("1_e2o6t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1625452917]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_i0uuj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1291967192]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_i0uuj")
+animation = &"side"
+
+[node name="Chickens" type="Sprite2D" parent="." unique_id=897310852]
+y_sort_enabled = true
+
+[node name="Chicken" parent="Chickens" unique_id=1930207501 instance=ExtResource("3_feb5d")]
+position = Vector2(40, 52)
+
+[node name="Chicken2" parent="Chickens" unique_id=560866166 instance=ExtResource("3_feb5d")]
+position = Vector2(67, 63)
+
+[node name="Chicken3" parent="Chickens" unique_id=1791296239 instance=ExtResource("3_feb5d")]
+position = Vector2(14, 28)
+
+[node name="Chicken4" parent="Chickens" unique_id=919503321 instance=ExtResource("3_feb5d")]
+position = Vector2(14, 61)
+
+[node name="Chicken5" parent="Chickens" unique_id=1372908859 instance=ExtResource("3_feb5d")]
+position = Vector2(92, 41)
+
+[node name="Chicken6" parent="Chickens" unique_id=227563206 instance=ExtResource("3_feb5d")]
+position = Vector2(102, 25)
+
+[node name="Chicken7" parent="Chickens" unique_id=1229279136 instance=ExtResource("3_feb5d")]
+position = Vector2(72, 21)
+
+[node name="Chicken8" parent="Chickens" unique_id=942134424 instance=ExtResource("3_feb5d")]
+position = Vector2(16, 37)
+
+[node name="Chicken9" parent="Chickens" unique_id=96676458 instance=ExtResource("3_feb5d")]
+position = Vector2(39, 78)
+
+[node name="Chicken10" parent="Chickens" unique_id=699534165 instance=ExtResource("3_feb5d")]
+position = Vector2(102, 69)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=634594228]
+z_index = -1
+tile_map_data = PackedByteArray("AAAMAP//AAACAAAAAAAMAAkAAAACAAIAAAD//wkAAAAAAAIAAAAAAAkAAAABAAIAAAABAAkAAAABAAIAAAACAAkAAAABAAIAAAADAAkAAAABAAIAAAAEAAkAAAABAAIAAAAFAAkAAAABAAIAAAAGAAkAAAABAAIAAAAHAAkAAAABAAIAAAAIAAkAAAABAAIAAAAJAAkAAAABAAIAAAAKAAkAAAABAAIAAAALAAkAAAABAAIAAAD//wgAAAAAAAEAAAD//wcAAAAAAAEAAAD//wYAAAAAAAEAAAD//wUAAAAAAAEAAAAGAP//AAABAAAAAAAHAP//AAABAAAAAAAIAP//AAABAAAAAAAJAP//AAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAMAAAAAAACAAEAAAAMAAEAAAACAAEAAAAMAAIAAAACAAEAAAAMAAMAAAACAAEAAAAMAAQAAAACAAEAAAAMAAUAAAACAAEAAAAMAAYAAAACAAEAAAAMAAcAAAACAAEAAAAMAAgAAAACAAEAAAAAAP//AAABAAAAAAABAP//AAABAAAAAAACAP//AAABAAAAAAADAP//AAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAEAAAD//wEAAAAAAAEAAAD//wIAAAAAAAEAAAD//wMAAAAAAAEAAAD//wQAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_i0uuj")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=692448914 node_paths=PackedStringArray("player")]
+position = Vector2(49, 27)
+script = ExtResource("5_7jktm")
+player = NodePath("../Player")

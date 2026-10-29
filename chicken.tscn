@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dv7f2wl2w132s"]
+
+[ext_resource type="Script" uid="uid://b2066ovv206jh" path="res://chicken.gd" id="1_isa2u"]
+[ext_resource type="Texture2D" uid="uid://dciroutg8agch" path="res://assets/chicken.png" id="2_tl7hd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isa2u"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5wjh"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vef74"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlb7l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isa2u")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5wjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vef74")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0uuj"]
+radius = 1.0
+
+[node name="Chicken" type="RigidBody2D" unique_id=513305663]
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 30.0
+angular_damp = 30.0
+script = ExtResource("1_isa2u")
+max_wait_time = 1.0
+min_run_time = 0.5
+max_run_time = 1.0
+min_run_speed = 5.0
+max_run_speed = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056400395]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_nlb7l")
+animation = &"idle"
+
+[node name="WaitTime" type="Timer" parent="." unique_id=1990563572]
+one_shot = true
+
+[node name="RunTime" type="Timer" parent="." unique_id=1674757584]
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=597439011]
+shape = SubResource("CircleShape2D_i0uuj")
