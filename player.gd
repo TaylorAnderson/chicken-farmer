@@ -5,6 +5,8 @@ class_name Player
 @export var speed:float = 40;
 
 var facing_dir:Vector2 = Vector2.ZERO
+
+@export var debug_predator_scene:PackedScene
 func _physics_process(delta):
 	var input_velocity = Input.get_vector("left", "right", "up", "down") * speed;
 	
@@ -24,3 +26,8 @@ func _physics_process(delta):
 	
 	velocity = input_velocity
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("spawn_predator"):
+		var predator:Node2D = debug_predator_scene.instantiate()
+		get_parent().add_child(predator)
+		predator.position = position;
