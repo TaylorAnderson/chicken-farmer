@@ -2,6 +2,15 @@
 
 [ext_resource type="Script" uid="uid://b2066ovv206jh" path="res://chicken.gd" id="1_isa2u"]
 [ext_resource type="Texture2D" uid="uid://dciroutg8agch" path="res://assets/chicken.png" id="2_tl7hd"]
+[ext_resource type="Script" uid="uid://b4rdesaom3xf2" path="res://perception.gd" id="3_tl7hd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xhwt5"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sa2qs"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_isa2u"]
 atlas = ExtResource("2_tl7hd")
@@ -15,8 +24,35 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("2_tl7hd")
 region = Rect2(16, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl7hd"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtlia"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs43v"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnst4"]
+atlas = ExtResource("2_tl7hd")
+region = Rect2(128, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_nlb7l"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xhwt5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sa2qs")
+}],
+"loop": 1,
+"name": &"eat",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_isa2u")
@@ -35,33 +71,276 @@ animations = [{
 "loop": 1,
 "name": &"run",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl7hd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtlia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vs43v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnst4")
+}],
+"loop": 0,
+"name": &"shock",
+"speed": 8.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_i0uuj"]
-radius = 1.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_nlb7l"]
+radius = 3.0
 
-[node name="Chicken" type="RigidBody2D" unique_id=513305663]
-gravity_scale = 0.0
-lock_rotation = true
-linear_damp = 30.0
-angular_damp = 30.0
+[node name="Chicken" type="Area2D" unique_id=676041699]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_isa2u")
-max_wait_time = 1.0
-min_run_time = 0.5
-max_run_time = 1.0
-min_run_speed = 5.0
-max_run_speed = 20.0
+max_idle_time = 2.0
+wander_speed = 10.0
+run_speed = 40.0
+avoidance_speed = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2056400395]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_nlb7l")
-animation = &"idle"
+animation = &"eat"
+frame_progress = 0.5422829
 
-[node name="WaitTime" type="Timer" parent="." unique_id=1990563572]
-one_shot = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2056829603]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_nlb7l")
 
-[node name="RunTime" type="Timer" parent="." unique_id=1674757584]
-one_shot = true
+[node name="Perception" type="Node2D" parent="." unique_id=336267003]
+visible = false
+script = ExtResource("3_tl7hd")
+fov = 180.0
+radius = 30.0
+steps = 45
+ray_mask = 15
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=597439011]
-shape = SubResource("CircleShape2D_i0uuj")
+[node name="@RayCast2D@68308" type="RayCast2D" parent="Perception" unique_id=108062242]
+target_position = Vector2(-1.3113416e-06, -30)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68309" type="RayCast2D" parent="Perception" unique_id=541150503]
+target_position = Vector2(2.0926952, -29.926922)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68310" type="RayCast2D" parent="Perception" unique_id=1785391548]
+target_position = Vector2(4.175194, -29.708044)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68311" type="RayCast2D" parent="Perception" unique_id=1311815253]
+target_position = Vector2(6.2373495, -29.344429)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68312" type="RayCast2D" parent="Perception" unique_id=1587676726]
+target_position = Vector2(8.269121, -28.83785)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68313" type="RayCast2D" parent="Perception" unique_id=178151974]
+target_position = Vector2(10.260605, -28.190779)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68314" type="RayCast2D" parent="Perception" unique_id=263651081]
+target_position = Vector2(12.202099, -27.406364)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68315" type="RayCast2D" parent="Perception" unique_id=1502639358]
+target_position = Vector2(14.084148, -26.488426)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68316" type="RayCast2D" parent="Perception" unique_id=1392425324]
+target_position = Vector2(15.897578, -25.441442)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68317" type="RayCast2D" parent="Perception" unique_id=1493431978]
+target_position = Vector2(17.633556, -24.27051)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68318" type="RayCast2D" parent="Perception" unique_id=1612134707]
+target_position = Vector2(19.283628, -22.981333)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68319" type="RayCast2D" parent="Perception" unique_id=241034880]
+target_position = Vector2(20.839752, -21.580194)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68320" type="RayCast2D" parent="Perception" unique_id=1845207540]
+target_position = Vector2(22.294344, -20.07392)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68321" type="RayCast2D" parent="Perception" unique_id=57841483]
+target_position = Vector2(23.640324, -18.469845)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68322" type="RayCast2D" parent="Perception" unique_id=28353227]
+target_position = Vector2(24.871128, -16.775787)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68323" type="RayCast2D" parent="Perception" unique_id=1466066124]
+target_position = Vector2(25.980762, -15)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68324" type="RayCast2D" parent="Perception" unique_id=790421630]
+target_position = Vector2(26.963821, -13.1511345)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68325" type="RayCast2D" parent="Perception" unique_id=291757448]
+target_position = Vector2(27.815516, -11.238197)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68326" type="RayCast2D" parent="Perception" unique_id=557509217]
+target_position = Vector2(28.531696, -9.27051)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68327" type="RayCast2D" parent="Perception" unique_id=1771540939]
+target_position = Vector2(29.108871, -7.257657)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68328" type="RayCast2D" parent="Perception" unique_id=1611062870]
+target_position = Vector2(29.544233, -5.209446)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68329" type="RayCast2D" parent="Perception" unique_id=516486089]
+target_position = Vector2(29.835657, -3.135854)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68330" type="RayCast2D" parent="Perception" unique_id=470005579]
+target_position = Vector2(29.981726, -1.0469849)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68331" type="RayCast2D" parent="Perception" unique_id=207358359]
+target_position = Vector2(29.981726, 1.0469849)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68332" type="RayCast2D" parent="Perception" unique_id=872460606]
+target_position = Vector2(29.835657, 3.135854)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68333" type="RayCast2D" parent="Perception" unique_id=1923321991]
+target_position = Vector2(29.544233, 5.209446)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68334" type="RayCast2D" parent="Perception" unique_id=1964941819]
+target_position = Vector2(29.108871, 7.257657)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68335" type="RayCast2D" parent="Perception" unique_id=973481843]
+target_position = Vector2(28.531696, 9.27051)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68336" type="RayCast2D" parent="Perception" unique_id=1728468603]
+target_position = Vector2(27.815516, 11.238197)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68337" type="RayCast2D" parent="Perception" unique_id=1783099288]
+target_position = Vector2(26.963821, 13.1511345)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68338" type="RayCast2D" parent="Perception" unique_id=1114994017]
+target_position = Vector2(25.980762, 15)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68339" type="RayCast2D" parent="Perception" unique_id=1573260785]
+target_position = Vector2(24.871128, 16.775787)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68340" type="RayCast2D" parent="Perception" unique_id=281133973]
+target_position = Vector2(23.640324, 18.469845)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68341" type="RayCast2D" parent="Perception" unique_id=2111100413]
+target_position = Vector2(22.294344, 20.07392)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68342" type="RayCast2D" parent="Perception" unique_id=15145840]
+target_position = Vector2(20.839752, 21.580194)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68343" type="RayCast2D" parent="Perception" unique_id=533800204]
+target_position = Vector2(19.283628, 22.981333)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68344" type="RayCast2D" parent="Perception" unique_id=2024965388]
+target_position = Vector2(17.633556, 24.27051)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68345" type="RayCast2D" parent="Perception" unique_id=195453129]
+target_position = Vector2(15.897578, 25.441442)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68346" type="RayCast2D" parent="Perception" unique_id=925723753]
+target_position = Vector2(14.084148, 26.488426)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68347" type="RayCast2D" parent="Perception" unique_id=1669284651]
+target_position = Vector2(12.202099, 27.406364)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68348" type="RayCast2D" parent="Perception" unique_id=1409931785]
+target_position = Vector2(10.260605, 28.190779)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68349" type="RayCast2D" parent="Perception" unique_id=748364688]
+target_position = Vector2(8.269121, 28.83785)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68350" type="RayCast2D" parent="Perception" unique_id=1408356959]
+target_position = Vector2(6.2373495, 29.344429)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68351" type="RayCast2D" parent="Perception" unique_id=439616055]
+target_position = Vector2(4.175194, 29.708044)
+collision_mask = 15
+collide_with_areas = true
+
+[node name="@RayCast2D@68352" type="RayCast2D" parent="Perception" unique_id=238887987]
+target_position = Vector2(2.0926952, 29.926922)
+collision_mask = 15
+collide_with_areas = true
