@@ -1,5 +1,5 @@
 @tool
-class_name Perception
+class_name Vision
 extends Node2D
 
 @export var fov:float = 90;

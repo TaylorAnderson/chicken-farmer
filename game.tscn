@@ -1,77 +1,9 @@
 [gd_scene format=4 uid="uid://bj0b5gtqapd5q"]
 
-[ext_resource type="Texture2D" uid="uid://cx1lfxk2spfsx" path="res://assets/farmer.png" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://b0xcbu3svgkgc" path="res://player.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://ds3y37f5o2u7g" path="res://predator.tscn" id="2_ryrav"]
+[ext_resource type="PackedScene" uid="uid://dspk54no062ii" path="res://player.tscn" id="1_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://dv7f2wl2w132s" path="res://chicken.tscn" id="3_feb5d"]
 [ext_resource type="Texture2D" uid="uid://db8a4t6b8bqj8" path="res://assets/fence.png" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://c7tc0vitksrfs" path="res://camera.gd" id="5_7jktm"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_i0uuj"]
-radius = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7jktm"]
-atlas = ExtResource("1_80nbo")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ryrav"]
-atlas = ExtResource("1_80nbo")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j5wjh"]
-atlas = ExtResource("1_80nbo")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vef74"]
-atlas = ExtResource("1_80nbo")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eow3j"]
-atlas = ExtResource("1_80nbo")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_i0uuj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7jktm")
-}],
-"loop": 1,
-"name": &"down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ryrav")
-}],
-"loop": 1,
-"name": &"side",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j5wjh")
-}],
-"loop": 1,
-"name": &"side_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vef74")
-}],
-"loop": 1,
-"name": &"side_up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eow3j")
-}],
-"loop": 1,
-"name": &"up",
-"speed": 5.0
-}]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7jktm"]
 texture = ExtResource("4_fc0e3")
@@ -99,20 +31,8 @@ sources/0 = SubResource("TileSetAtlasSource_7jktm")
 [node name="Node2D" type="Node2D" unique_id=625627386]
 y_sort_enabled = true
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=1142791260]
+[node name="Player" parent="." unique_id=1895481943 instance=ExtResource("1_fc0e3")]
 position = Vector2(17, 17)
-collision_layer = 2
-script = ExtResource("1_e2o6t")
-debug_predator_scene = ExtResource("2_ryrav")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1625452917]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_i0uuj")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1291967192]
-position = Vector2(0, -5)
-sprite_frames = SubResource("SpriteFrames_i0uuj")
-animation = &"side"
 
 [node name="Chickens" type="Sprite2D" parent="." unique_id=897310852]
 y_sort_enabled = true

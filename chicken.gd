@@ -34,7 +34,7 @@ var accel:Vector2 = Vector2.ZERO;
 
 var timer:float = 0;
 
-@onready var perception:Perception = $Perception
+@onready var vision:Vision = $Vision
 
 var current_speed:float = 0;
 var predator_spotted:Predator = null;
@@ -45,8 +45,8 @@ func _physics_process(delta):
 	timer -= delta;
 	
 	if velocity.length() > 0:
-		perception.rotation = velocity.angle();
-		perception.force_update();
+		vision.rotation = velocity.angle();
+		vision.force_update();
 
 	match state:
 		State.IDLE:
@@ -57,7 +57,7 @@ func _physics_process(delta):
 			if timer < 0:
 				change_state(State.IDLE)
 		State.WANDERING:
-			var predator = perception.look_for(Predator)
+			var predator = vision.look_for(Predator)
 			if predator:
 				predator_spotted = predator;
 				change_state(State.SHOCKED)
@@ -74,7 +74,7 @@ func _physics_process(delta):
 				change_state(State.PANICKED)
 
 		State.PANICKED:
-			var predator = perception.look_for(Predator)
+			var predator = vision.look_for(Predator)
 			if timer < 0 and not predator:
 				change_state(State.IDLE)
 			else:
@@ -91,7 +91,7 @@ func _physics_process(delta):
 func get_avoidance_vector():
 	# farthest away we can get from the vel is the opposite
 	var closest_ray:Vector2 = velocity * -1;
-	var open_dirs = perception.get_open_directions()
+	var open_dirs = vision.get_open_directions()
 	for dir:Vector2 in open_dirs:
 		if abs(dir.angle_to(velocity)) < abs(closest_ray.angle_to(velocity)):
 			closest_ray = dir;
@@ -104,11 +104,11 @@ func get_avoidance_vector():
 func avoid_threats_vector():
 	var steering = Vector2.ZERO
 	
-	var predator = perception.look_for(Predator)
+	var predator = vision.look_for(Predator)
 	if predator != null:
 		steering = (global_position - predator.global_position)
 	
-	var player = perception.look_for(Player)
+	var player = vision.look_for(Player)
 	if player != null:
 		steering = (global_position - player.global_position)
 	

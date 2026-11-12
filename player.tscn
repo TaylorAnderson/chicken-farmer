@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://dspk54no062ii"]
+
+[ext_resource type="Script" uid="uid://b0xcbu3svgkgc" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="PackedScene" uid="uid://ds3y37f5o2u7g" path="res://predator.tscn" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://bwhuoq4wjpg4k" path="res://assets/pitchfork.png" id="3_hqtel"]
+[ext_resource type="Texture2D" uid="uid://cx1lfxk2spfsx" path="res://assets/farmer.png" id="3_sweqy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0uuj"]
+radius = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jktm"]
+atlas = ExtResource("3_sweqy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryrav"]
+atlas = ExtResource("3_sweqy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5wjh"]
+atlas = ExtResource("3_sweqy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vef74"]
+atlas = ExtResource("3_sweqy")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eow3j"]
+atlas = ExtResource("3_sweqy")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i0uuj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jktm")
+}],
+"loop": 1,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryrav")
+}],
+"loop": 1,
+"name": &"side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5wjh")
+}],
+"loop": 1,
+"name": &"side_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vef74")
+}],
+"loop": 1,
+"name": &"side_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eow3j")
+}],
+"loop": 1,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_sweqy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hqtel"]
+resource_name = "swing_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -1.0471975511965976, 0.7853981633974483, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
+_data = {
+&"RESET": SubResource("Animation_sweqy"),
+&"swing_right": SubResource("Animation_hqtel")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1895481943]
+collision_layer = 2
+script = ExtResource("1_i3pqv")
+debug_predator_scene = ExtResource("2_hqtel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=744465143]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_i0uuj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1682918715]
+position = Vector2(0, -5)
+rotation = -0.0063165487
+sprite_frames = SubResource("SpriteFrames_i0uuj")
+animation = &"side"
+frame_progress = 0.7893061
+
+[node name="Pitchfork" type="Node2D" parent="." unique_id=1155596622]
+position = Vector2(0, -6)
+rotation = 2.3561945
+
+[node name="Sprite" type="Sprite2D" parent="Pitchfork" unique_id=1637506521]
+position = Vector2(0, 1)
+texture = ExtResource("3_hqtel")
+offset = Vector2(5, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pitchfork" unique_id=1087376293]
+libraries/ = SubResource("AnimationLibrary_sweqy")
